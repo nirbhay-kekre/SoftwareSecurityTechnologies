@@ -38,7 +38,7 @@ int main(int argc, char const *argv[])
             perror("socket failed"); 
             exit(EXIT_FAILURE); 
         } 
-
+        
         // Forcefully attaching socket to the port 80 
         if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, 
                                                     &opt, sizeof(opt))) 
@@ -89,17 +89,17 @@ int main(int argc, char const *argv[])
             exit(EXIT_FAILURE); 
         } 
         valread = read( new_socket , buffer, 1024); 
-        //providing data to child via pipe 
+        //providing data to parent via pipe 
         write(pipe_fd[1], buffer , 1024);
         send(new_socket , hello , strlen(hello) , 0 ); 
         printf("Hello message sent\n"); 
         break;
     default:
-        // parent process : processes data provided by parent
+        // parent process : processes data provided by child
         close(pipe_fd[1]); //closing write end of the pipe in parent
-        //reading data from parent
+        //reading data from child via pipe
         valread = read(pipe_fd[0], buffer, 1024);
-        //processing data from parent
+        //processing data from child
         printf("%s\n",buffer ); 
         int child_exit_status;
         //waiting for child to finish processing
