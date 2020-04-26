@@ -74,3 +74,6 @@ $ sudo ./server
 $ gcc -o client client.c
 $ sudo ./client
 ```
+
+## Testing
+I have created a docker image which runs a ubuntu image and installs required packages like gcc, vim, git, etc.<br> [click here](https://github.com/nirbhay-kekre/SoftwareSecurityTechnologies/blob/master/Dockerfile) to view Dockerfile
